@@ -30,20 +30,25 @@
                                     <outlet property="dataSource" destination="pgU-Ex-TG8" id="FBP-69-aJU"/>
                                 </connections>
                             </pickerView>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="lnh-gZ-Tam">
-                                <rect key="frame" x="116" y="129" width="143" height="29"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="lnh-gZ-Tam">
+                                <rect key="frame" x="116" y="150" width="143" height="29"/>
                                 <segments>
                                     <segment title="Celcius"/>
                                     <segment title="Farenheit"/>
                                 </segments>
+                                <connections>
+                                    <action selector="switchConversor:" destination="BYZ-38-t0r" eventType="valueChanged" id="Hac-EY-BPg"/>
+                                </connections>
                             </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="lnh-gZ-Tam" firstAttribute="top" secondItem="wPX-au-3Bg" secondAttribute="bottom" constant="42.5" id="4QN-PY-yu6"/>
                             <constraint firstItem="z3i-bJ-D5G" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="Awx-kD-yI1"/>
+                            <constraint firstItem="lnh-gZ-Tam" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="116" id="LdG-c5-IPf"/>
                             <constraint firstItem="wPX-au-3Bg" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="M1B-iO-zgO"/>
                             <constraint firstItem="wPX-au-3Bg" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="54" id="bjW-bC-ZLB"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="lnh-gZ-Tam" secondAttribute="trailing" constant="116" id="efg-6K-sRe"/>
                             <constraint firstItem="wPX-au-3Bg" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="f9c-wi-fzp"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="wPX-au-3Bg" secondAttribute="trailing" constant="16" id="fOq-1P-FtD"/>
                             <constraint firstItem="z3i-bJ-D5G" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="qmy-Dd-b43"/>
@@ -52,6 +57,7 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="segmentController" destination="lnh-gZ-Tam" id="9mx-4W-ZzB"/>
                         <outlet property="temperatureLabel" destination="wPX-au-3Bg" id="OY6-MI-YUl"/>
                         <outlet property="temperatureRange" destination="pgU-Ex-TG8" id="JI4-8D-nuo"/>
                         <outlet property="tempreraturePicker" destination="z3i-bJ-D5G" id="PRD-GK-QDD"/>

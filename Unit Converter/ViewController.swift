@@ -16,6 +16,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var temperatureLabel: UILabel!
     @IBOutlet weak var tempreraturePicker: UIPickerView!
     
+    @IBOutlet weak var segmentController: UISegmentedControl!
     //private var temperatureValues = [Int]()
     //
 
@@ -23,16 +24,34 @@ class ViewController: UIViewController {
     
     let userDefaultsLastRowKey = "defaultCelciusPickerRow"
     
+    @IBAction func switchConversor(_ sender: UISegmentedControl) {
+        switch segmentController.selectedSegmentIndex
+        {
+        case 0:
+            tempreraturePicker.reloadAllComponents()
+            pickerView(tempreraturePicker, didSelectRow:initialPickerRow(), inComponent: 0)
+            break;
+        case 1:
+            tempreraturePicker.reloadAllComponents()
+            pickerView(tempreraturePicker, didSelectRow:initialPickerRow(), inComponent: 0)
+            break;
+            
+        default:
+            break;
+            
+        }
+    }
+    //var segmentedControl: UISegmentedControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         //tempreraturePicker.dataSource = self;
         
         tempreraturePicker.delegate = self;
-        let defaultPickerRow = initialPickerRow()
+        //let defaultPickerRow = initialPickerRow()
         
-        tempreraturePicker.selectRow(defaultPickerRow, inComponent: 0, animated: true)
-        pickerView(tempreraturePicker, didSelectRow:defaultPickerRow, inComponent: 0)
+        tempreraturePicker.selectRow(initialPickerRow(), inComponent: 0, animated: true)
+        pickerView(tempreraturePicker, didSelectRow: initialPickerRow(), inComponent: 0)
         
         
         //let lowerBound = -100
@@ -70,17 +89,21 @@ extension ViewController: UIPickerViewDelegate {
  
     //Delegates
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-       return "\(temperatureRange.values[row])°C"
-    }
+        if segmentController.selectedSegmentIndex == 0 {
+            return "\(temperatureRange.values[row])°C"
+        } else {
+            return "\(temperatureRange.values[row])°F"
+        }    }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         let celciusValue = Float(temperatureRange.values[row])
         saveSelectedRow(row: row)
         
-
-        
-        temperatureLabel.text = "\(unitConverter.degreesFarenheit(degreesCelcius: Int(celciusValue)))°F"
+        if segmentController.selectedSegmentIndex == 0 {
+            temperatureLabel.text = "\(unitConverter.degreesFarenheit(degreesCelcius: Int(celciusValue)))°F"
+        } else {
+            temperatureLabel.text = "\(unitConverter.degreesCelsius(degreesFarenheint: Int(celciusValue)))°C"
+        }
     }
-    
     
 }

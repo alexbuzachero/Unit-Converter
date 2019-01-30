@@ -23,6 +23,7 @@ class ViewController: UIViewController {
     let unitConverter = UnitConverter()
     
     let userDefaultsLastRowKey = "defaultCelciusPickerRow"
+    let userDefaultsLastDegreesKey = "defaultChosenDegrees"
     
     @IBAction func switchConversor(_ sender: UISegmentedControl) {
         switch segmentController.selectedSegmentIndex
@@ -30,10 +31,12 @@ class ViewController: UIViewController {
         case 0:
             tempreraturePicker.reloadAllComponents()
             pickerView(tempreraturePicker, didSelectRow:initialPickerRow(), inComponent: 0)
+            savedSelectedDegrees(degrees: 0)
             break;
         case 1:
             tempreraturePicker.reloadAllComponents()
             pickerView(tempreraturePicker, didSelectRow:initialPickerRow(), inComponent: 0)
+            savedSelectedDegrees(degrees: 1)
             break;
             
         default:
@@ -46,6 +49,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         //tempreraturePicker.dataSource = self;
+        
+        segmentController.selectedSegmentIndex = selectDegrees()
         
         tempreraturePicker.delegate = self;
         //let defaultPickerRow = initialPickerRow()
@@ -69,11 +74,25 @@ class ViewController: UIViewController {
         return tempreraturePicker.numberOfRows(inComponent: 0) / 2
     }
     
+    func selectDegrees() -> Int{
+        if let savedDegrees = UserDefaults.standard.object(forKey: userDefaultsLastDegreesKey) as? Int{
+            return savedDegrees
+            
+        }
+        return 0
+    }
+    
     func saveSelectedRow(row: Int){
         let defaults = UserDefaults.standard
         defaults.set(row, forKey: userDefaultsLastRowKey)
         defaults.synchronize()
         
+    }
+    
+    func savedSelectedDegrees(degrees:Int) {
+        let defaults = UserDefaults.standard
+        defaults.set(degrees, forKey: userDefaultsLastDegreesKey)
+        defaults.synchronize()
     }
     
     func displayConvertedTemperatureForRow(row: Int){
